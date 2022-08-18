@@ -13,22 +13,23 @@ module.exports = {
     project: ['./tsconfig.json'],
   },
   settings: {
-    'import/resolver': {
-      alias: {
-        map: [
-          ['api', './src/api'],
-          ['assets', './src/assets'],
-          ['components', './src/components'],
-          ['hooks', './src/hooks'],
-          ['utils', './src/utils'],
-          ['providers', './src/providers'],
-          ['pages', './src/pages'],
-          ['mutations', './src/api/mutations'],
-          ['queries', './src/api/queries'],
-          ['i18n', './src/i18n'],
-        ],
-      },
-    },
+    // 'import/resolver': {
+    //   alias: {
+    //     map: [
+    //       ['api', './src/api'],
+    //       ['assets', './src/assets'],
+    //       ['components', './src/components'],
+    //       ['hooks', './src/hooks'],
+    //       ['utils', './src/utils'],
+    //       ['providers', './src/providers'],
+    //       ['pages', './src/pages'],
+    //       ['mutations', './src/api/mutations'],
+    //       ['queries', './src/api/queries'],
+    //       ['i18n', './src/i18n'],
+    //       ['testUtils', './src/testUtils/index.tsx'],
+    //     ],
+    //   },
+    // },
     react: {
       version: 'detect',
     },

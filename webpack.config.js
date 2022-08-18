@@ -16,6 +16,7 @@ const baseConfig = {
       pages: path.resolve(__dirname, 'src/pages'),
       mutations: path.resolve(__dirname, 'src/api/mutations'),
       queries: path.resolve(__dirname, 'src/api/queries'),
+      testUtils: path.resolve(__dirname, 'src/testUtils'),
     },
     modules: ['node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.json'],
