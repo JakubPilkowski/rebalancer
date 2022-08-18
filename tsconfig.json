@@ -37,7 +37,9 @@
       "pages/*": ["./pages/*"],
       "mutations/*": ["./api/mutations/*"],
       "queries/*": ["./api/queries/*"],
-      "i18n/*": ["./i18n/*"]
+      "i18n/*": ["./i18n/*"],
+      "mocks/*": ["./__mocks__/*"],
+      "testUtils": ["./testUtils/test-utils.tsx"]
     },
     "allowJs": true,
     "checkJs": true,

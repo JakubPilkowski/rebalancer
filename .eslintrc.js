@@ -2,7 +2,7 @@ module.exports = {
   extends: ['prettier'],
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
   parser: '@typescript-eslint/parser',
-  ignorePatterns: ['node_modules', '*.config.js', '.eslintrc.js'],
+  ignorePatterns: ['node_modules', '*.config.js', '.eslintrc.js', 'coverage'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -13,22 +13,23 @@ module.exports = {
     project: ['./tsconfig.json'],
   },
   settings: {
-    'import/resolver': {
-      alias: {
-        map: [
-          ['api', './src/api'],
-          ['assets', './src/assets'],
-          ['components', './src/components'],
-          ['hooks', './src/hooks'],
-          ['utils', './src/utils'],
-          ['providers', './src/providers'],
-          ['pages', './src/pages'],
-          ['mutations', './src/api/mutations'],
-          ['queries', './src/api/queries'],
-          ['i18n', './src/i18n'],
-        ],
-      },
-    },
+    // 'import/resolver': {
+    //   alias: {
+    //     map: [
+    //       ['api', './src/api'],
+    //       ['assets', './src/assets'],
+    //       ['components', './src/components'],
+    //       ['hooks', './src/hooks'],
+    //       ['utils', './src/utils'],
+    //       ['providers', './src/providers'],
+    //       ['pages', './src/pages'],
+    //       ['mutations', './src/api/mutations'],
+    //       ['queries', './src/api/queries'],
+    //       ['i18n', './src/i18n'],
+    //       ['testUtils', './src/testUtils/index.tsx'],
+    //     ],
+    //   },
+    // },
     react: {
       version: 'detect',
     },
@@ -98,7 +99,7 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/consistent-indexed-object-style': [1, 'index-signature'], //disallow using Record
+    '@typescript-eslint/consistent-indexed-object-style': 0, //disallow using Record
     '@typescript-eslint/explicit-member-accessibility': 0, // for typescript classes properties accessibility
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/method-signature-style': [1, 'property'],
