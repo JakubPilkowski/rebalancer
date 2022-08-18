@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const Wallets: FC<Props> = () => {
   return (

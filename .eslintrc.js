@@ -2,7 +2,7 @@ module.exports = {
   extends: ['prettier'],
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
   parser: '@typescript-eslint/parser',
-  ignorePatterns: ['node_modules', '*.config.js', '.eslintrc.js'],
+  ignorePatterns: ['node_modules', '*.config.js', '.eslintrc.js', 'coverage'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -99,7 +99,7 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/consistent-indexed-object-style': [1, 'index-signature'], //disallow using Record
+    '@typescript-eslint/consistent-indexed-object-style': 0, //disallow using Record
     '@typescript-eslint/explicit-member-accessibility': 0, // for typescript classes properties accessibility
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/method-signature-style': [1, 'property'],
