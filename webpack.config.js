@@ -92,7 +92,9 @@ const productionConfig = {
     minimize: true,
   },
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
     }),
