@@ -2,22 +2,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const baseConfig = {
   entry: './src/index.tsx',
   resolve: {
-    alias: {
-      assets: path.resolve(__dirname, 'src/assets'),
-      api: path.resolve(__dirname, 'src/api'),
-      components: path.resolve(__dirname, '../src/components'),
-      hooks: path.resolve(__dirname, 'src/hooks'),
-      utils: path.resolve(__dirname, 'src/utils'),
-      providers: path.resolve(__dirname, 'src/providers'),
-      pages: path.resolve(__dirname, 'src/pages'),
-      mutations: path.resolve(__dirname, 'src/api/mutations'),
-      queries: path.resolve(__dirname, 'src/api/queries'),
-      testUtils: path.resolve(__dirname, 'src/testUtils'),
-    },
+    plugins: [new TsconfigPathsPlugin()],
     modules: ['node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
@@ -61,13 +52,8 @@ const developmentConfig = {
     port: 8080,
     historyApiFallback: true,
     hot: true,
-    open: true,
     // probably to change
     static: false,
-    // will be used in configuration with node.js server
-    // proxy: {
-    //   '/api': 'http:localhost:3000',
-    // },
   },
   watchOptions: {
     ignored: /node_modules/,
@@ -91,7 +77,6 @@ const developmentConfig = {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      chunkFilename: '[contenthash].css',
     }),
   ],
 };
@@ -100,9 +85,20 @@ const productionConfig = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
+    filename: '[name].[contenthash].js',
     chunkFilename: '[chunkhash].js',
   },
+  optimization: {
+    minimize: true,
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+    }),
+  ],
 };
 
 module.exports = (env, args) => {
