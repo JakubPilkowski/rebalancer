@@ -11,9 +11,6 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const getEnvKeys = ({ path }) => {
   const env = dotenv.config({ path }).parsed;
 
-  console.log('env', env);
-  console.log(process.env.REBALANCER_API);
-
   if (!env) return {};
 
   const envKeys = Object.keys(env).reduce((prev, next) => {
