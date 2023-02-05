@@ -38,7 +38,8 @@
       "queries/*": ["./api/queries/*"],
       "i18n/*": ["./i18n/*"],
       "mocks/*": ["./__mocks__/*"],
-      "testUtils": ["./testUtils/test-utils.tsx"]
+      "testUtils": ["./testUtils/test-utils.tsx"],
+      "@types": ["./@types/*"]
     },
     "allowJs": true,
     // "checkJs": true,
