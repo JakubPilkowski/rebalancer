@@ -1,9 +1,23 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const getEnvKeys = ({ path }) => {
+  const env = dotenv.config({ path }).parsed;
+
+  const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
+
+  return envKeys;
+};
 
 const baseConfig = {
   entry: './src/index.tsx',
@@ -16,7 +30,6 @@ const baseConfig = {
     rules: [
       {
         test: /\.(js|ts)x?$/,
-        // exclude: /node_modules/,
         include: path.resolve(__dirname, 'src'),
         use: [
           {
@@ -71,6 +84,7 @@ const developmentConfig = {
     clean: true,
   },
   plugins: [
+    new webpack.DefinePlugin(getEnvKeys({ path: path.resolve(process.cwd(), '.env.dev') })),
     new HtmlWebpackPlugin({
       // filename: './index.html',
       template: './index.html',
@@ -92,6 +106,7 @@ const productionConfig = {
     minimize: true,
   },
   plugins: [
+    new webpack.DefinePlugin(getEnvKeys({ path: path.resolve(process.cwd(), '.env') })),
     new HtmlWebpackPlugin({
       template: 'index.html',
     }),
