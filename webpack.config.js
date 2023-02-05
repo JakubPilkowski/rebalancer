@@ -84,7 +84,7 @@ const developmentConfig = {
     clean: true,
   },
   plugins: [
-    new webpack.DefinePlugin(getEnvKeys({ path: path.resolve(process.cwd(), '.env.dev') })),
+    new webpack.DefinePlugin(getEnvKeys({ path: path.resolve(__dirname, '.env.dev') })),
     new HtmlWebpackPlugin({
       // filename: './index.html',
       template: './index.html',
@@ -106,7 +106,6 @@ const productionConfig = {
     minimize: true,
   },
   plugins: [
-    new webpack.DefinePlugin(getEnvKeys({ path: path.resolve(process.cwd(), '.env') })),
     new HtmlWebpackPlugin({
       template: 'index.html',
     }),
