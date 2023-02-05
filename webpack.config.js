@@ -11,6 +11,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const getEnvKeys = ({ path }) => {
   const env = dotenv.config({ path }).parsed;
 
+  if (!env) return {};
+
   const envKeys = Object.keys(env).reduce((prev, next) => {
     prev[`process.env.${next}`] = JSON.stringify(env[next]);
     return prev;
