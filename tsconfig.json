@@ -29,6 +29,7 @@
     "paths": {
       "components/*": ["./components/*"],
       "assets/*": ["./assets/*"],
+      "locales/*": ["./assets/locales/*"],
       "api/*": ["./api/*"],
       "hooks/*": ["./hooks/*"],
       "utils/*": ["./utils/*"],
@@ -37,8 +38,8 @@
       "mutations/*": ["./api/mutations/*"],
       "queries/*": ["./api/queries/*"],
       "i18n/*": ["./i18n/*"],
-      "mocks/*": ["./__mocks__/*"],
-      "testUtils": ["./testUtils/test-utils.tsx"],
+      "apiMocks/*": ["./__mocks__/apiMocks/*"],
+      "testUtils/*": ["./testUtils/*"],
       "@types": ["./@types/*"]
     },
     "allowJs": true,
