@@ -2,11 +2,14 @@ import React, { FC, memo } from 'react';
 import { useQuery } from '@apollo/client';
 
 import GET_WALLETS, { GetWalletsPayload } from 'api/queries/GET_WALLETS';
+import { useTranslation } from 'react-i18next';
 
 type Props = Record<string, unknown>;
 
 const Wallets: FC<Props> = () => {
   const { data, loading, error } = useQuery<GetWalletsPayload>(GET_WALLETS);
+
+  const { t } = useTranslation();
 
   if (loading) {
     return <p>Ładowanie...</p>;
@@ -18,7 +21,7 @@ const Wallets: FC<Props> = () => {
 
   return (
     <div>
-      <p>Wallets</p>
+      <p>{t('wallets:investment_wallets')}</p>
       {data?.wallets.map((wallet) => (
         <div key={wallet._id}>
           <p>{wallet.name}</p>

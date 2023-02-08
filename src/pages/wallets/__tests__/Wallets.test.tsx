@@ -1,18 +1,19 @@
 import React from 'react';
 
-import { render, screen } from 'testUtils/test-utils';
+import { render, screen, waitWithAct } from 'testUtils';
 import VerboseMockedProvider from 'testUtils/VerboseMockedProvider';
+import { ApiWalletBuilder } from 'testUtils/builders/ApiWalletBuilder';
 
-import GET_WALLETS_MOCK, { apiWalletsMock } from 'mocks/apiMocks/GET_WALLETS_MOCK';
-import { apiWalletMock } from 'mocks/apiMocks/GET_WALLET_MOCK';
+import GET_WALLETS_MOCK from 'apiMocks/GET_WALLETS_MOCK';
 
 import Wallets from '../Wallets';
+import { ApiWalletsBuilder } from 'testUtils/builders/ApiWalletsBuilder';
 
 describe('Wallets', () => {
-  const wallet1 = apiWalletMock.with({ name: 'test1', currency: 'USD' });
-  const wallet2 = apiWalletMock.with({ name: 'test1', currency: 'PLN' });
+  const wallet1 = new ApiWalletBuilder().with({ _id: '1', name: 'test1', currency: 'USD' });
+  const wallet2 = new ApiWalletBuilder().with({ _id: '2', name: 'test2', currency: 'PLN' });
 
-  const wallets = apiWalletsMock.with(wallet1, wallet2);
+  const wallets = new ApiWalletsBuilder().with(wallet1, wallet2);
 
   it('should render Wallets page', async () => {
     render(
@@ -21,8 +22,14 @@ describe('Wallets', () => {
       </VerboseMockedProvider>
     );
 
-    // await
+    await waitWithAct();
+    await waitWithAct();
 
-    expect(screen.getByText('Wallets')).toBeInTheDocument();
+    expect(screen.getByText('wallets:investment_wallets')).toBeInTheDocument();
+
+    wallets.get().forEach((wallet) => {
+      expect(screen.getByText(wallet.name)).toBeInTheDocument();
+      expect(screen.getByText(wallet.currency)).toBeInTheDocument();
+    });
   });
 });
