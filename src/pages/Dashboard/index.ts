@@ -1,3 +1,3 @@
-import Dashboard from './Dashboard';
+import Dashboard from './items/Dashboard';
 
 export default Dashboard;

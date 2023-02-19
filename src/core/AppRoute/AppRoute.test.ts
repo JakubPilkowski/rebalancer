@@ -1,15 +1,15 @@
-import PageRoute from './PageRoute';
+import AppRoute from './AppRoute';
 
-describe('PageRoute', () => {
-  it('should create PageRoute instance without ref function', () => {
-    const route = new PageRoute({ path: '/test' });
+describe('AppRoute', () => {
+  it('should create AppRoute instance without ref function', () => {
+    const route = new AppRoute({ path: '/test' });
 
     expect(route.path).toBe('/test');
     expect(route.get()).toBe('/test');
   });
 
-  it('should create PageRoute instance with ref', () => {
-    const route = new PageRoute({
+  it('should create AppRoute instance with ref', () => {
+    const route = new AppRoute({
       path: '/test/:testId/:childTestId',
       ref: (testId: string, childTestId: string) => {
         return `/test/${testId}/${childTestId}`;

@@ -1,7 +1,6 @@
 type SidebarProps = {
   className?: string;
   loading?: boolean;
-  hasWallets?: boolean;
   /**
    * used for mobile sidebar view to open/hide sidebar
    */
