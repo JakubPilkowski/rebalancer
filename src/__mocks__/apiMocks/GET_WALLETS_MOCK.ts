@@ -6,8 +6,6 @@ import { IApiWallet } from 'api/fragment/WALLET';
 import withMockedResponse from 'testUtils/withMockedResponse';
 import { ApiWalletsBuilder } from 'testUtils/builders/ApiWalletsBuilder';
 
-export const apiWalletsMock = new ApiWalletsBuilder();
-
 export default function GET_WALLETS_MOCK({
   result,
   error,

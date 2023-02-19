@@ -6,7 +6,7 @@ export type GetWalletsPayload = {
 };
 
 export default gql`
-  query Wallets {
+  query GetWallets {
     wallets {
       ...Wallet
     }
