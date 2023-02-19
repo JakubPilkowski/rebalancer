@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material';
+import lightPalette from 'theme/lightPalette';
 
 const theme = createTheme({
   components: {
@@ -12,6 +13,7 @@ const theme = createTheme({
       },
     },
   },
+  palette: { ...lightPalette },
 });
 
 export default theme;
