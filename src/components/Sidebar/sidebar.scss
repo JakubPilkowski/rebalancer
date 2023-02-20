@@ -1,0 +1,55 @@
+.sidebar {
+  width: 100%;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1000;
+  transform: translateX(-100%);
+
+  @screen lg {
+    width: 300px;
+    transform: unset;
+    z-index: unset;
+    position: relative;
+  }
+
+  .sidebar-drawer-icon {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px;
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    border-radius: var(--borderRadiusFull);
+
+    @screen lg {
+      display: none;
+    }
+  }
+
+  .sidebar-collapse-icon {
+    display: none;
+    position: absolute;
+    top: 20%;
+    right: -50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: var(--colorWhite);
+    //box-shadow
+    color: var(--colorPrimary);
+
+    @screen {
+      display: initial;
+    }
+  }
+}
+
+.sidebar-animation-enter {
+  transform: translateX(-100%);
+}
+
+.sidebar-animation-enter-active {
+  transition: transform 400ms;
+  transform: translateX(0%);
+}

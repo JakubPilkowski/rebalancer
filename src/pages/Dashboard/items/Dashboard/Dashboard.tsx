@@ -13,10 +13,11 @@ import WelcomeView from '../WelcomeView';
 
 import DashboardProps from './Dashboard.types';
 
+import './dashboard.scss';
+
 const Dashboard: FC<DashboardProps> = ({ loading, error, children }) => {
   return (
-    <div>
-      <Sidebar loading={loading} />
+    <div className="dashboard">
       <Panel>
         <>
           {loading && <Loader />}
@@ -24,6 +25,7 @@ const Dashboard: FC<DashboardProps> = ({ loading, error, children }) => {
           {!loading && !error && (children || <WelcomeView />)}
         </>
       </Panel>
+      <Sidebar loading={loading} />
     </div>
   );
 };

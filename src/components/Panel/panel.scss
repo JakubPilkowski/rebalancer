@@ -1,0 +1,14 @@
+.panel {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacingL);
+  border-radius: 0;
+  background-color: var(--colorWhite);
+
+  @screen lg {
+    height: 100%;
+    border-radius: var(--borderRadiusXXL) 0 0 var(--borderRadiusXXL);
+  }
+}

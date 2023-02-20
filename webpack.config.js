@@ -43,9 +43,9 @@ const baseConfig = {
         ],
       },
       {
-        test: /\.css$/i,
+        test: /\.(sc|c)ss$/i,
         include: path.resolve(__dirname, 'src'),
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpe?g|webp|ico)$/i,
@@ -53,7 +53,22 @@ const baseConfig = {
       },
       {
         test: /\.svg$/,
-        use: ['@svgr/webpack'],
+        issuer: /\.[jt]sx?$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'removeViewBox',
+                    active: false,
+                  },
+                ],
+              },
+            },
+          },
+        ],
       },
     ],
   },
