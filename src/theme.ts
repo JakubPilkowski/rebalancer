@@ -9,6 +9,7 @@ const theme = createTheme({
         // The props to change the default for.
         style: {
           textTransform: 'none',
+          display: 'block',
         },
       },
     },

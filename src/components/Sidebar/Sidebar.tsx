@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import CSSTransition from 'react-transition-group/CSSTransition';
@@ -17,15 +17,23 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import AnchorLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import AnchorRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import SettingsIcon from '@mui/icons-material/Settings';
+import WalletIcon from '@mui/icons-material/Wallet';
+import CrisisAlertIcon from '@mui/icons-material/CrisisAlert';
+import WalletSettingsIcon from '@mui/icons-material/PrecisionManufacturing';
 
 import SidebarProps from './Sidebar.types';
 
 import './sidebar.scss';
 import useToggle from 'hooks/useToggle';
+import { ClickAwayListener } from '@mui/material';
 
 const Sidebar: FC<SidebarProps> = ({ loading }) => {
   const { walletId } = useParams<IRouteParams>();
-  const [isSidebarDrawerOpen, { setTrue: open, setFalse: close }] = useToggle(false);
+  const sidebarRef = useRef<HTMLElement>(null);
+  const [isSidebarDrawerOpen, { setTrue: open, setFalse: close, toggle: toggleDrawer }] =
+    useToggle(false);
   const [isSidebarCollapsed, { toggle: toggleCollapse }] = useToggle(false);
 
   const { wallets } = useWalletsService();
@@ -35,35 +43,100 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
     [walletId, wallets]
   );
 
+  const withoutPropagation = useCallback(
+    (cb: VoidFunction) => (e: MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      cb();
+    },
+    []
+  );
+
   const hasWallets = wallets?.length || 0;
 
   return (
     <>
+      {/* <ClickAwayListener onClickAway={close}> */}
+      {isSidebarDrawerOpen && <div className="sidebar-backdrop" onClick={close} />}
       <CSSTransition
         in={isSidebarCollapsed || isSidebarDrawerOpen}
         classNames="sidebar-animation"
+        nodeRef={sidebarRef}
+        // unmountOnExit
         timeout={400}>
-        <aside className="sidebar">
-          <IconButton onClick={close}>
+        <aside ref={sidebarRef} className="sidebar">
+          <div className="sidebar__inner">
+            {/* <IconButton onClick={close} className="sidebar-drawer-close">
             <CloseIcon />
-          </IconButton>
-          <IconButton onClick={toggleCollapse}>
-            {isSidebarCollapsed ? <AnchorRightIcon /> : <AnchorLeftIcon />}
-          </IconButton>
-          {loading && <Loader />}
-          {hasWallets && !!wallets && !!walletId && !!currentWallet ? (
-            <>
-              <WalletDropdown wallets={wallets} currentWallet={currentWallet} />
-              {/* navigation */}
-              <NavLink to={APP_ROUTES.wallet.get(walletId)}>Portel</NavLink>
-            </>
-          ) : (
-            <>No wallets</>
-          )}
+          </IconButton> */}
+            <IconButton
+              className="sidebar-collapse-icon"
+              onClick={withoutPropagation(toggleCollapse)}>
+              {isSidebarCollapsed ? (
+                <AnchorRightIcon fontSize="large" />
+              ) : (
+                <AnchorLeftIcon fontSize="large" />
+              )}
+            </IconButton>
+            {loading && <Loader />}
+            {hasWallets && !!wallets && !!walletId && !!currentWallet ? (
+              <>
+                {/* logo + brand name */}
+                <header className="sidebar__header">
+                  <h1 className="sidebar__header-title">REBALANCER</h1>
+                </header>
+
+                <NavLink to={APP_ROUTES.wallet.get(walletId)}>Profil</NavLink>
+
+                <WalletDropdown wallets={wallets} currentWallet={currentWallet} />
+
+                {/* navigation */}
+                <nav className="sidebar__main-navigation">
+                  <NavLink
+                    className="sidebar__link"
+                    to={APP_ROUTES.wallet.get(walletId)}
+                    onClick={close}>
+                    <WalletIcon className="sidebar__link-icon" />
+                    <p className="sidebar__link-text">Portel</p>
+                  </NavLink>
+                  <NavLink
+                    className="sidebar__link"
+                    to={APP_ROUTES.strategy.get(walletId)}
+                    onClick={close}>
+                    <CrisisAlertIcon className="sidebar__link-icon" />
+                    <p className="sidebar__link-text">Strategia</p>
+                  </NavLink>
+                  <NavLink
+                    className="sidebar__link"
+                    to={APP_ROUTES.notifications.get(walletId)}
+                    onClick={close}>
+                    <NotificationsIcon className="sidebar__link-icon" />
+                    <p className="sidebar__link-text">Powiadomienia</p>
+                  </NavLink>
+                  <NavLink
+                    className="sidebar__link"
+                    to={APP_ROUTES.settings.get(walletId)}
+                    onClick={close}>
+                    <WalletSettingsIcon className="sidebar__link-icon" />
+                    <p className="sidebar__link-text">Ustawienia</p>
+                  </NavLink>
+                </nav>
+
+                {/* divider */}
+                <NavLink to={APP_ROUTES.wallet.get(walletId)} onClick={close}>
+                  <SettingsIcon />
+                  Ustawienia
+                </NavLink>
+              </>
+            ) : (
+              <>No wallets</>
+            )}
+          </div>
         </aside>
       </CSSTransition>
-      <IconButton onClick={open}>
-        <MenuIcon />
+      {/* </ClickAwayListener> */}
+
+      <IconButton className="sidebar-drawer-icon" onClick={withoutPropagation(toggleDrawer)}>
+        {isSidebarDrawerOpen ? <CloseIcon fontSize="large" /> : <MenuIcon fontSize="large" />}
       </IconButton>
     </>
   );
