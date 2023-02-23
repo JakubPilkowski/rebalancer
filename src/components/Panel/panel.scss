@@ -10,5 +10,6 @@
   @screen lg {
     height: 100%;
     border-radius: var(--borderRadiusXXL) 0 0 var(--borderRadiusXXL);
+    box-shadow: var(--colorWhite) 0px 0px 12px 0px, var(--colorWhite) 0px 2px 4px 0px;
   }
 }

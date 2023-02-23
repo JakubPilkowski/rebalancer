@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
@@ -21,13 +21,17 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import SettingsIcon from '@mui/icons-material/Settings';
 import WalletIcon from '@mui/icons-material/Wallet';
 import CrisisAlertIcon from '@mui/icons-material/CrisisAlert';
-import WalletSettingsIcon from '@mui/icons-material/PrecisionManufacturing';
-
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AddIcon from '@mui/icons-material/Add';
+import DatasetIcon from '@mui/icons-material/Dataset';
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import SidebarProps from './Sidebar.types';
 
 import './sidebar.scss';
 import useToggle from 'hooks/useToggle';
-import { ClickAwayListener } from '@mui/material';
+import { Button } from '@mui/material';
 
 const Sidebar: FC<SidebarProps> = ({ loading }) => {
   const { walletId } = useParams<IRouteParams>();
@@ -65,9 +69,6 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
         timeout={400}>
         <aside ref={sidebarRef} className="sidebar">
           <div className="sidebar__inner">
-            {/* <IconButton onClick={close} className="sidebar-drawer-close">
-            <CloseIcon />
-          </IconButton> */}
             <IconButton
               className="sidebar-collapse-icon"
               onClick={withoutPropagation(toggleCollapse)}>
@@ -85,12 +86,15 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                   <h1 className="sidebar__header-title">REBALANCER</h1>
                 </header>
 
-                <NavLink to={APP_ROUTES.wallet.get(walletId)}>Profil</NavLink>
-
-                <WalletDropdown wallets={wallets} currentWallet={currentWallet} />
-
                 {/* navigation */}
                 <nav className="sidebar__main-navigation">
+                  <WalletDropdown wallets={wallets} currentWallet={currentWallet} />
+                  <Link to={APP_ROUTES.walletCreator.path}>
+                    <Button variant="contained" color="secondary" onClick={close}>
+                      <AddIcon className="add-wallet__icon" />
+                      <p className="add-wallet__text">Dodaj portfel</p>
+                    </Button>
+                  </Link>
                   <NavLink
                     className="sidebar__link"
                     to={APP_ROUTES.wallet.get(walletId)}
@@ -114,21 +118,44 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                   </NavLink>
                   <NavLink
                     className="sidebar__link"
-                    to={APP_ROUTES.settings.get(walletId)}
+                    to={APP_ROUTES.dataSources.get(walletId)}
                     onClick={close}>
-                    <WalletSettingsIcon className="sidebar__link-icon" />
+                    <DatasetIcon className="sidebar__link-icon" />
+                    <p className="sidebar__link-text">Źródła danych</p>
+                  </NavLink>
+                  <NavLink
+                    className="sidebar__link"
+                    to={APP_ROUTES.walletSettings.get(walletId)}
+                    onClick={close}>
+                    <SettingsApplicationsIcon className="sidebar__link-icon" />
+                    <p className="sidebar__link-text">Ustawienia portfela</p>
+                  </NavLink>
+                  <div className="sidebar__nav-divider" />
+                  <NavLink className="sidebar__link" to={APP_ROUTES.settings.path} onClick={close}>
+                    <SettingsIcon className="sidebar__link-icon" />
                     <p className="sidebar__link-text">Ustawienia</p>
                   </NavLink>
                 </nav>
 
-                {/* divider */}
-                <NavLink to={APP_ROUTES.wallet.get(walletId)} onClick={close}>
-                  <SettingsIcon />
-                  Ustawienia
-                </NavLink>
+                <button className="sidebar__logout">
+                  <div className="logout-icon__wrapper">
+                    <LogoutIcon className="logout-icon" />
+                  </div>
+                  <p className="logout-text">Wyloguj się</p>
+                </button>
               </>
             ) : (
-              <>No wallets</>
+              <div>
+                <h1>Tutaj pojawią się Twoje portfele oszczędnościowe</h1>
+
+                <p>
+                  Aby dodać swój pierwszy portfel kliknij przycisk poniżej lub przycisk na panelu
+                  sterowania po prawej stronie
+                </p>
+                <IconButton onClick={() => {}}>
+                  <AddBoxIcon fontSize="large" />
+                </IconButton>
+              </div>
             )}
           </div>
         </aside>
