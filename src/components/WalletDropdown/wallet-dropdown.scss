@@ -1,0 +1,20 @@
+.wallet-dropdown {
+  background-color: var(--colorWhite);
+  border-radius: 8px !important;
+  color: var(--colorPrimary) !important;
+  font-size: var(--fontM) !important;
+
+  .MuiInputBase-input {
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    // color: var(--colorPrimary);
+  }
+
+  .MuiSelect-nativeInput {
+    outline: none;
+  }
+
+  @screen lg {
+  }
+}

@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
@@ -35,9 +35,9 @@ import { Button } from '@mui/material';
 
 const Sidebar: FC<SidebarProps> = ({ loading }) => {
   const { walletId } = useParams<IRouteParams>();
+  const navigate = useNavigate();
   const sidebarRef = useRef<HTMLElement>(null);
-  const [isSidebarDrawerOpen, { setTrue: open, setFalse: close, toggle: toggleDrawer }] =
-    useToggle(false);
+  const [isSidebarDrawerOpen, { setFalse: close, toggle: toggleDrawer }] = useToggle(false);
   const [isSidebarCollapsed, { toggle: toggleCollapse }] = useToggle(false);
 
   const { wallets } = useWalletsService();
@@ -53,6 +53,14 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
       cb();
     },
     []
+  );
+
+  const handleWalletChange = useCallback(
+    (walletId: string) => {
+      navigate(APP_ROUTES.wallet.get(walletId));
+      close();
+    },
+    [close, navigate]
   );
 
   const hasWallets = wallets?.length || 0;
@@ -88,7 +96,11 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
 
                 {/* navigation */}
                 <nav className="sidebar__main-navigation">
-                  <WalletDropdown wallets={wallets} currentWallet={currentWallet} />
+                  <WalletDropdown
+                    wallets={wallets}
+                    currentWallet={currentWallet}
+                    onWalletChange={handleWalletChange}
+                  />
                   <Link to={APP_ROUTES.walletCreator.path}>
                     <Button variant="contained" color="secondary" onClick={close}>
                       <AddIcon className="add-wallet__icon" />
