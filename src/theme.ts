@@ -13,6 +13,9 @@ const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      defaultProps: {},
+    },
   },
   palette: { ...lightPalette },
 });

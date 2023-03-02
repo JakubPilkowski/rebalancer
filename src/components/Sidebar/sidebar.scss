@@ -25,27 +25,31 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    gap: 20px;
   }
 
   .sidebar-collapse-icon {
     display: none !important;
     position: absolute !important;
-    top: 15%;
-    width: 40px;
-    height: 40px;
-    right: -20px;
+    top: 25%;
+    width: 36px;
+    height: 36px;
+    right: -18px;
     // transform: translateX(-50%);
-    background-color: var(--colorBlack) !important;
+    background-color: var(--colorGrey) !important;
     border-radius: var(--borderRadiusFull);
     //box-shadow
-    color: var(--colorPrimary);
+    box-shadow: var(--colorPrimary) 0px 0px 16px 0px, var(--colorPrimary) 0px 0px 6px 0px;
 
     svg {
-      fill: var(--colorWhite);
+      font-size: var(--fontXXXL);
+      fill: var(--colorPrimary);
     }
 
     @screen lg {
-      display: initial !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
       z-index: 1500;
     }
   }
@@ -61,13 +65,22 @@
   }
 
   .sidebar__header {
-    margin-bottom: var(--spacingL);
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+
+    @screen lg {
+      // margin-bottom: var(--spacingL);
+    }
 
     .sidebar__header-title {
       font-size: var(--fontXXL);
       font-family: var(--fontSecondary);
       font-weight: bold;
       color: var(--colorWhite);
+      letter-spacing: 0.1rem;
 
       @screen lg {
         font-size: var(--fontXXXL);
@@ -75,9 +88,63 @@
     }
   }
 
+  .sidebar__add-wallet {
+    width: 100%;
+    box-shadow: rgba(var(--colorSecondaryRGB), 0.2) 0px 6px 5px,
+      rgba(var(--colorSecondaryRGB), 0.3) 0px 6px 6px;
+    display: flex !important;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    padding: 7px 15px;
+    font-family: var(--fontPrimary);
+    border-radius: 6px;
+    min-width: unset;
+
+    @screen lg {
+      padding: 10px 15px;
+    }
+    // background-color: #fcf3af;
+
+    &:hover {
+      box-shadow: rgba(var(--colorSecondaryRGB), 0.2) 0px 6px 5px,
+        rgba(var(--colorSecondaryRGB), 0.3) 0px 6px 6px;
+      background-color: #fbee8e;
+    }
+
+    .add-wallet__icon {
+      width: 22px;
+      height: 22px;
+      background-color: var(--colorPrimary);
+      padding: 3px;
+      border-radius: var(--borderRadiusFull);
+
+      path {
+        fill: var(--colorWhite);
+      }
+
+      @screen lg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .add-wallet__text {
+      color: var(--colorPrimary);
+      font-size: var(--fontM);
+      font-weight: bold;
+      white-space: nowrap;
+
+      @screen lg {
+        font-size: var(--fontL);
+      }
+    }
+  }
+
   .sidebar__main-navigation {
     display: flex;
     flex-direction: column;
+    margin: 0 5px;
     gap: var(--spacingL);
     font-size: var(--fontPrimary);
 
@@ -127,11 +194,13 @@
 
   .sidebar__link-text {
     margin-left: var(--spacingM);
-    font-size: var(--fontXXL);
+    font-size: var(--fontL);
+    line-height: 30px;
 
     @screen lg {
       margin-left: var(--spacingL);
-      font-size: var(--fontXXXL);
+      font-size: var(--fontXL);
+      line-height: 36px;
     }
   }
 
@@ -142,23 +211,30 @@
     border-radius: var(--borderRadiusFull);
   }
 
+  .sidebar__logout-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
   .sidebar__logout {
     display: flex !important;
     align-items: center;
-    font-size: var(--fontL);
+    font-size: var(--fontM);
     text-align: left;
     padding: 0;
     color: var(--colorWhite);
 
     @screen lg {
-      font-size: var(--fontXL);
+      font-size: var(--fontL);
     }
 
     .logout-icon__wrapper {
       background-color: var(--colorWhite);
       padding: var(--spacingM);
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -166,6 +242,11 @@
 
       .logout-icon {
         color: var(--colorPrimary);
+      }
+
+      @screen lg {
+        width: 30px;
+        height: 30px;
       }
     }
 
@@ -222,6 +303,10 @@
       overflow: hidden;
       width: 100%;
     }
+
+    .add-wallet__text {
+      width: 100%;
+    }
   }
 }
 
@@ -242,6 +327,11 @@
 
     .sidebar__header-title {
       overflow: hidden;
+      transition: width 400ms ease-in-out;
+      width: 0px;
+    }
+
+    .add-wallet__text {
       transition: width 400ms ease-in-out;
       width: 0px;
     }
@@ -269,6 +359,11 @@
       width: 0px;
       overflow: hidden;
     }
+
+    .add-wallet__text {
+      display: none;
+      width: 0px;
+    }
   }
 }
 
@@ -292,6 +387,11 @@
       display: none;
       width: 0px;
       overflow: hidden;
+    }
+
+    .add-wallet__text {
+      display: none;
+      width: 0px;
     }
   }
 }
@@ -322,6 +422,12 @@
       width: 100%;
       overflow: hidden;
     }
+
+    .add-wallet__text {
+      display: inherit;
+      transition: width 400ms ease-in-out;
+      width: 100%;
+    }
   }
 }
 
@@ -339,6 +445,10 @@
 
     .sidebar__header-title {
       overflow: hidden;
+      width: 100%;
+    }
+
+    .add-wallet__text {
       width: 100%;
     }
   }

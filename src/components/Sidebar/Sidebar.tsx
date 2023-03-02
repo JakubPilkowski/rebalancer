@@ -1,10 +1,12 @@
 import React, { FC, MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
 import { IApiWallet } from 'api/fragment/WALLET';
 
+import useToggle from 'hooks/useToggle';
 import useWalletsService from 'hooks/useWalletsService';
 
 import IRouteParams from 'core/IRouteParams';
@@ -30,8 +32,6 @@ import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import SidebarProps from './Sidebar.types';
 
 import './sidebar.scss';
-import useToggle from 'hooks/useToggle';
-import { Button } from '@mui/material';
 
 const Sidebar: FC<SidebarProps> = ({ loading }) => {
   const { walletId } = useParams<IRouteParams>();
@@ -80,11 +80,7 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
             <IconButton
               className="sidebar-collapse-icon"
               onClick={withoutPropagation(toggleCollapse)}>
-              {isSidebarCollapsed ? (
-                <AnchorRightIcon fontSize="large" />
-              ) : (
-                <AnchorLeftIcon fontSize="large" />
-              )}
+              {isSidebarCollapsed ? <AnchorRightIcon /> : <AnchorLeftIcon />}
             </IconButton>
             {loading && <Loader />}
             {hasWallets && !!wallets && !!walletId && !!currentWallet ? (
@@ -92,21 +88,25 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                 {/* logo + brand name */}
                 <header className="sidebar__header">
                   <h1 className="sidebar__header-title">REBALANCER</h1>
-                </header>
-
-                {/* navigation */}
-                <nav className="sidebar__main-navigation">
                   <WalletDropdown
                     wallets={wallets}
                     currentWallet={currentWallet}
                     onWalletChange={handleWalletChange}
                   />
                   <Link to={APP_ROUTES.walletCreator.path}>
-                    <Button variant="contained" color="secondary" onClick={close}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      className="sidebar__add-wallet"
+                      onClick={close}>
                       <AddIcon className="add-wallet__icon" />
-                      <p className="add-wallet__text">Dodaj portfel</p>
+                      <p className="add-wallet__text">Utwórz nowy portfel</p>
                     </Button>
                   </Link>
+                </header>
+
+                {/* navigation */}
+                <nav className="sidebar__main-navigation">
                   <NavLink
                     className="sidebar__link"
                     to={APP_ROUTES.wallet.get(walletId)}
@@ -149,12 +149,14 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                   </NavLink>
                 </nav>
 
-                <button className="sidebar__logout">
-                  <div className="logout-icon__wrapper">
-                    <LogoutIcon className="logout-icon" />
-                  </div>
-                  <p className="logout-text">Wyloguj się</p>
-                </button>
+                <div className="sidebar__logout-inner">
+                  <button className="sidebar__logout">
+                    <div className="logout-icon__wrapper">
+                      <LogoutIcon className="logout-icon" />
+                    </div>
+                    <p className="logout-text">Wyloguj się</p>
+                  </button>
+                </div>
               </>
             ) : (
               <div>
