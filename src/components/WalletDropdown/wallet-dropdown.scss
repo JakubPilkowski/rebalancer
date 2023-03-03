@@ -19,6 +19,8 @@
     font-size: var(--fontM);
     padding: 7px 15px;
     font-weight: bold;
+    display: flex;
+    align-items: center;
 
     @screen lg {
       padding: 10px 15px;
@@ -60,7 +62,7 @@
   }
 
   &__popover-root {
-    margin-top: -9px;
+    // margin-top: -9px;
 
     .wallet-dropdown__value {
       margin-left: 10px;

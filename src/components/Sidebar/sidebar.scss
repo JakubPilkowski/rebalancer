@@ -253,7 +253,21 @@
     .logout-text {
       margin-left: var(--spacingM);
       flex: 1;
+      white-space: nowrap;
     }
+  }
+}
+
+.sidebar__tooltip {
+  background-color: var(--colorGrey) !important;
+  color: var(--colorPrimary) !important;
+  font-size: var(--fontM) !important;
+  border-radius: 6px !important;
+  font-family: var(--fontPrimary) !important;
+  font-weight: bold !important;
+
+  .MuiTooltip-arrow::before {
+    background-color: var(--colorGrey) !important;
   }
 }
 
@@ -307,6 +321,14 @@
     .add-wallet__text {
       width: 100%;
     }
+
+    .logout-text {
+      width: 100%;
+    }
+
+    .wallet-dropdown__value {
+      width: 100%;
+    }
   }
 }
 
@@ -335,6 +357,16 @@
       transition: width 400ms ease-in-out;
       width: 0px;
     }
+
+    .logout-text {
+      transition: width 400ms ease-in-out;
+      width: 0px;
+    }
+
+    .wallet-dropdown__value {
+      transition: width 400ms ease-in-out;
+      width: 0px;
+    }
   }
 }
 
@@ -360,7 +392,40 @@
       overflow: hidden;
     }
 
+    .sidebar__add-wallet {
+      justify-content: center;
+    }
+
     .add-wallet__text {
+      display: none;
+      width: 0px;
+    }
+
+    .sidebar__logout {
+      justify-content: center;
+    }
+
+    .logout-text {
+      display: none;
+      width: 0px;
+    }
+
+    .wallet-dropdown {
+      .MuiSelect-select {
+        padding-right: 0px !important;
+      }
+
+      .MuiInputBase-input {
+        justify-content: center !important;
+        padding-right: 15px !important;
+      }
+
+      .MuiSelect-icon {
+        display: none;
+      }
+    }
+
+    .wallet-dropdown__value {
       display: none;
       width: 0px;
     }
@@ -390,6 +455,22 @@
     }
 
     .add-wallet__text {
+      display: none;
+      width: 0px;
+    }
+
+    .logout-text {
+      display: none;
+      width: 0px;
+    }
+
+    .wallet-dropdown {
+      .MuiSelect-icon {
+        display: initial;
+      }
+    }
+
+    .wallet-dropdown__value {
       display: none;
       width: 0px;
     }
@@ -428,6 +509,18 @@
       transition: width 400ms ease-in-out;
       width: 100%;
     }
+
+    .logout-text {
+      display: inherit;
+      transition: width 400ms ease-in-out;
+      width: 100%;
+    }
+
+    .wallet-dropdown__value {
+      display: inherit;
+      transition: width 400ms ease-in-out;
+      width: 100%;
+    }
   }
 }
 
@@ -449,6 +542,14 @@
     }
 
     .add-wallet__text {
+      width: 100%;
+    }
+
+    .logout-text {
+      width: 100%;
+    }
+
+    .wallet-dropdown__value {
       width: 100%;
     }
   }

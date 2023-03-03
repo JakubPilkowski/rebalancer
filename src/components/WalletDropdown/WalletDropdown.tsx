@@ -1,6 +1,6 @@
-import React, { FC, useCallback } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 
-import Select, { SelectProps, SelectChangeEvent } from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import WalletIcon from '@mui/icons-material/Wallet';
@@ -9,9 +9,12 @@ import WalletDropdownProps from './WalletDropdown.types';
 
 import './wallet-dropdown.scss';
 
-const WalletDropdown: FC<WalletDropdownProps> = ({ wallets, currentWallet, onWalletChange }) => {
+const WalletDropdown = forwardRef<HTMLSelectElement, WalletDropdownProps>(function WalletDropdown(
+  { wallets, currentWallet, onWalletChange, onMouseEnter, onMouseLeave },
+  ref
+) {
   const handleWalletChange = useCallback(
-    (e: SelectChangeEvent) => {
+    (e: SelectChangeEvent<string>) => {
       e.stopPropagation();
       onWalletChange(e.target.value);
     },
@@ -20,6 +23,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({ wallets, currentWallet, onWal
 
   return (
     <Select
+      ref={ref}
       value={currentWallet._id}
       renderValue={() => (
         <>
@@ -35,7 +39,9 @@ const WalletDropdown: FC<WalletDropdownProps> = ({ wallets, currentWallet, onWal
           paper: 'wallet-dropdown__popover-paper',
         },
       }}
-      IconComponent={ExpandMoreIcon}>
+      IconComponent={ExpandMoreIcon}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}>
       {wallets.map((wallet) => (
         <MenuItem key={wallet._id} value={wallet._id}>
           <>
@@ -46,6 +52,6 @@ const WalletDropdown: FC<WalletDropdownProps> = ({ wallets, currentWallet, onWal
       ))}
     </Select>
   );
-};
+});
 
 export default WalletDropdown;

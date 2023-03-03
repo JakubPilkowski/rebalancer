@@ -32,6 +32,7 @@ import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import SidebarProps from './Sidebar.types';
 
 import './sidebar.scss';
+import { Tooltip } from '@mui/material';
 
 const Sidebar: FC<SidebarProps> = ({ loading }) => {
   const { walletId } = useParams<IRouteParams>();
@@ -39,6 +40,15 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
   const sidebarRef = useRef<HTMLElement>(null);
   const [isSidebarDrawerOpen, { setFalse: close, toggle: toggleDrawer }] = useToggle(false);
   const [isSidebarCollapsed, { toggle: toggleCollapse }] = useToggle(false);
+  const [
+    isAddButtonTooltipOpen,
+    { setTrue: openAddButtonTooltip, setFalse: closeAddButtonTooltip },
+  ] = useToggle(false);
+
+  const [
+    isWalletDropdownTooltipOpen,
+    { setTrue: openWalletDropdownTooltip, setFalse: closeWalletDropdownTooltip },
+  ] = useToggle(false);
 
   const { wallets } = useWalletsService();
 
@@ -55,9 +65,18 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
     []
   );
 
+  const handleTooltipOpen = useCallback(
+    (cb: VoidFunction) => (_: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+      if (isSidebarCollapsed) cb();
+    },
+    [isSidebarCollapsed]
+  );
+
+  console.log(isAddButtonTooltipOpen);
+
   const handleWalletChange = useCallback(
     (walletId: string) => {
-      navigate(APP_ROUTES.wallet.get(walletId));
+      navigate(APP_ROUTES.wallet.get(walletId), { replace: false });
       close();
     },
     [close, navigate]
@@ -88,21 +107,42 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                 {/* logo + brand name */}
                 <header className="sidebar__header">
                   <h1 className="sidebar__header-title">REBALANCER</h1>
+                  {/* <Tooltip
+                    title="Zmień portfel inwestycyjny"
+                    classes={{
+                      tooltip: 'sidebar__tooltip',
+                    }}
+                    arrow
+                    placement="right"
+                    open={isWalletDropdownTooltipOpen}> */}
                   <WalletDropdown
                     wallets={wallets}
                     currentWallet={currentWallet}
                     onWalletChange={handleWalletChange}
+                    onMouseEnter={handleTooltipOpen(openWalletDropdownTooltip)}
+                    onMouseLeave={closeWalletDropdownTooltip}
                   />
-                  <Link to={APP_ROUTES.walletCreator.path}>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      className="sidebar__add-wallet"
-                      onClick={close}>
-                      <AddIcon className="add-wallet__icon" />
-                      <p className="add-wallet__text">Utwórz nowy portfel</p>
-                    </Button>
-                  </Link>
+                  {/* </Tooltip> */}
+                  <Tooltip
+                    title="Utwórz nowy portfel"
+                    classes={{
+                      tooltip: 'sidebar__tooltip',
+                    }}
+                    arrow
+                    open={isAddButtonTooltipOpen}>
+                    <Link to={APP_ROUTES.walletCreator.path}>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className="sidebar__add-wallet"
+                        onMouseEnter={handleTooltipOpen(openAddButtonTooltip)}
+                        onMouseLeave={closeAddButtonTooltip}
+                        onClick={close}>
+                        <AddIcon className="add-wallet__icon" />
+                        <p className="add-wallet__text">Utwórz nowy portfel</p>
+                      </Button>
+                    </Link>
+                  </Tooltip>
                 </header>
 
                 {/* navigation */}
