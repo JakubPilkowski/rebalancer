@@ -104,7 +104,10 @@ const developmentConfig = {
     new webpack.DefinePlugin(getEnvKeys({ path: path.resolve(__dirname, '.env.dev') })),
     new HtmlWebpackPlugin({
       // filename: './index.html',
+      hash: true,
+      inject: true,
       template: './index.html',
+      favicon: 'src/assets/images/favicon_5.ico',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
@@ -128,6 +131,7 @@ const productionConfig = {
     }),
     new HtmlWebpackPlugin({
       template: 'index.html',
+      favicon: './src/assets/images/favicon.ico',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',

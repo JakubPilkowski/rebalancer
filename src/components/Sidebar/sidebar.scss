@@ -75,6 +75,29 @@
       // margin-bottom: var(--spacingL);
     }
 
+    .header__brand-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header__logo-wrapper {
+      width: 50px;
+      height: 50px;
+      min-width: 50px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 22px;
+      background-color: var(--colorWhite);
+
+      svg {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
     .sidebar__header-title {
       font-size: var(--fontXXL);
       font-family: var(--fontSecondary);
@@ -265,9 +288,11 @@
   border-radius: 6px !important;
   font-family: var(--fontPrimary) !important;
   font-weight: bold !important;
+  box-shadow: var(--colorPrimary) 0px 0px 16px 0px, var(--colorPrimary) 0px 0px 6px 0px;
 
   .MuiTooltip-arrow::before {
     background-color: var(--colorGrey) !important;
+    box-shadow: var(--colorPrimary) 0px 0px 16px 0px, var(--colorPrimary) 0px 0px 6px 0px;
   }
 }
 
@@ -291,6 +316,7 @@
   background-color: var(--colorPrimary) !important;
   color: var(--colorWhite);
   border-radius: var(--borderRadiusFull);
+  box-shadow: var(--colorPrimary) 0px 0px 16px 0px, var(--colorPrimary) 0px 0px 6px 0px;
 
   svg {
     fill: var(--colorWhite);

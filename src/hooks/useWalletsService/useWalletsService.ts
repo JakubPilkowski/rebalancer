@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { useQuery } from '@apollo/client';
+import { useEffect, useMemo } from 'react';
+import { useLazyQuery, useQuery } from '@apollo/client';
 
 import { IApiWallet } from 'api/fragment/WALLET';
 import GET_WALLETS, { GetWalletsPayload } from 'api/queries/GET_WALLETS';
@@ -12,12 +12,13 @@ import UseWalletsService, {
   UseWalletsServiceLoaders,
 } from './useWalletsService.types';
 
-export default function useWalletService(): UseWalletsService {
-  const { data, loading: isFetching, error: fetchError } = useQuery<GetWalletsPayload>(GET_WALLETS);
+export default function useWalletService(automatic = true): UseWalletsService {
+  const [fetch, { data, loading: isFetching, error: fetchError }] =
+    useLazyQuery<GetWalletsPayload>(GET_WALLETS);
 
   const wallets = useMemo<IApiWallet[] | null>(() => (data ? data.wallets : null), [data]);
 
-  const actions = useMemo<UseWalletsServiceActions>(() => ({}), []);
+  const actions = useMemo<UseWalletsServiceActions>(() => ({ fetch }), [fetch]);
 
   const loaders = useMemo<UseWalletsServiceLoaders>(() => {
     return {
@@ -31,6 +32,11 @@ export default function useWalletService(): UseWalletsService {
     }),
     [fetchError]
   );
+
+  useEffect(() => {
+    if (!automatic) return;
+    fetch();
+  }, [automatic, fetch]);
 
   return {
     wallets,

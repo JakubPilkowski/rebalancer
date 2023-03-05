@@ -2,6 +2,7 @@ import React, { FC, MouseEvent, useCallback, useMemo, useRef, useState } from 'r
 import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
 import { IApiWallet } from 'api/fragment/WALLET';
@@ -29,13 +30,17 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from '@mui/icons-material/Add';
 import DatasetIcon from '@mui/icons-material/Dataset';
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import LogoIcon from 'assets/icons/logo_4.svg';
+
 import SidebarProps from './Sidebar.types';
 
 import './sidebar.scss';
-import { Tooltip } from '@mui/material';
+import { useReactiveVar } from '@apollo/client';
+import { currentWalletVar } from 'api/variables';
 
 const Sidebar: FC<SidebarProps> = ({ loading }) => {
-  const { walletId } = useParams<IRouteParams>();
+  // const { walletId } = useParams<IRouteParams>();
+  const walletId = useReactiveVar(currentWalletVar);
   const navigate = useNavigate();
   const sidebarRef = useRef<HTMLElement>(null);
   const [isSidebarDrawerOpen, { setFalse: close, toggle: toggleDrawer }] = useToggle(false);
@@ -72,8 +77,6 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
     [isSidebarCollapsed]
   );
 
-  console.log(isAddButtonTooltipOpen);
-
   const handleWalletChange = useCallback(
     (walletId: string) => {
       navigate(APP_ROUTES.wallet.get(walletId), { replace: false });
@@ -96,17 +99,29 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
         timeout={400}>
         <aside ref={sidebarRef} className="sidebar">
           <div className="sidebar__inner">
-            <IconButton
-              className="sidebar-collapse-icon"
-              onClick={withoutPropagation(toggleCollapse)}>
-              {isSidebarCollapsed ? <AnchorRightIcon /> : <AnchorLeftIcon />}
-            </IconButton>
+            <Tooltip
+              title={isSidebarCollapsed ? 'Rozszerz pasek boczny' : 'Zwęź pasek boczny'}
+              classes={{
+                tooltip: 'sidebar__tooltip',
+              }}
+              arrow>
+              <IconButton
+                className="sidebar-collapse-icon"
+                onClick={withoutPropagation(toggleCollapse)}>
+                {isSidebarCollapsed ? <AnchorRightIcon /> : <AnchorLeftIcon />}
+              </IconButton>
+            </Tooltip>
             {loading && <Loader />}
             {hasWallets && !!wallets && !!walletId && !!currentWallet ? (
               <>
                 {/* logo + brand name */}
                 <header className="sidebar__header">
-                  <h1 className="sidebar__header-title">REBALANCER</h1>
+                  <div className="header__brand-container">
+                    <div className="header__logo-wrapper">
+                      <LogoIcon />
+                    </div>
+                    <h1 className="sidebar__header-title">REBALANCER</h1>
+                  </div>
                   {/* <Tooltip
                     title="Zmień portfel inwestycyjny"
                     classes={{
@@ -137,7 +152,8 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                         className="sidebar__add-wallet"
                         onMouseEnter={handleTooltipOpen(openAddButtonTooltip)}
                         onMouseLeave={closeAddButtonTooltip}
-                        onClick={close}>
+                        // onClick={close}
+                      >
                         <AddIcon className="add-wallet__icon" />
                         <p className="add-wallet__text">Utwórz nowy portfel</p>
                       </Button>
@@ -150,35 +166,39 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                   <NavLink
                     className="sidebar__link"
                     to={APP_ROUTES.wallet.get(walletId)}
-                    onClick={close}>
+                    // onClick={close}
+                    end>
                     <WalletIcon className="sidebar__link-icon" />
                     <p className="sidebar__link-text">Portel</p>
                   </NavLink>
                   <NavLink
                     className="sidebar__link"
                     to={APP_ROUTES.strategy.get(walletId)}
-                    onClick={close}>
+                    // onClick={close}
+                  >
                     <CrisisAlertIcon className="sidebar__link-icon" />
                     <p className="sidebar__link-text">Strategia</p>
                   </NavLink>
                   <NavLink
                     className="sidebar__link"
                     to={APP_ROUTES.notifications.get(walletId)}
-                    onClick={close}>
+                    // onClick={close}
+                  >
                     <NotificationsIcon className="sidebar__link-icon" />
                     <p className="sidebar__link-text">Powiadomienia</p>
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     className="sidebar__link"
                     to={APP_ROUTES.dataSources.get(walletId)}
                     onClick={close}>
                     <DatasetIcon className="sidebar__link-icon" />
                     <p className="sidebar__link-text">Źródła danych</p>
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink
                     className="sidebar__link"
                     to={APP_ROUTES.walletSettings.get(walletId)}
-                    onClick={close}>
+                    // onClick={close}
+                  >
                     <SettingsApplicationsIcon className="sidebar__link-icon" />
                     <p className="sidebar__link-text">Ustawienia portfela</p>
                   </NavLink>
