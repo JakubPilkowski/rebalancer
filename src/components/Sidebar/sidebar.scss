@@ -204,6 +204,11 @@
     }
   }
 
+  .sidebar__skeleton {
+    margin-bottom: var(--spacingL);
+    background-color: var(--colorWhite);
+  }
+
   .sidebar__link-icon {
     font-size: var(--fontXXL);
     display: inline-block;

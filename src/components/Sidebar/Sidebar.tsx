@@ -37,6 +37,7 @@ import SidebarProps from './Sidebar.types';
 import './sidebar.scss';
 import { useReactiveVar } from '@apollo/client';
 import { currentWalletVar } from 'api/variables';
+import Skeleton from '@mui/material/Skeleton';
 
 const Sidebar: FC<SidebarProps> = ({ loading }) => {
   // const { walletId } = useParams<IRouteParams>();
@@ -85,7 +86,11 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
     [close, navigate]
   );
 
-  const hasWallets = wallets?.length || 0;
+  const hasWallets = wallets ? wallets.length > 0 : false;
+
+  const isContentVisible = hasWallets && !!wallets && !!walletId && !!currentWallet;
+
+  console.log(isContentVisible);
 
   return (
     <>
@@ -111,18 +116,33 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                 {isSidebarCollapsed ? <AnchorRightIcon /> : <AnchorLeftIcon />}
               </IconButton>
             </Tooltip>
-            {loading && <Loader />}
-            {hasWallets && !!wallets && !!walletId && !!currentWallet ? (
-              <>
-                {/* logo + brand name */}
-                <header className="sidebar__header">
-                  <div className="header__brand-container">
-                    <div className="header__logo-wrapper">
-                      <LogoIcon />
-                    </div>
-                    <h1 className="sidebar__header-title">REBALANCER</h1>
-                  </div>
-                  {/* <Tooltip
+            {/* {loading && <Loader />} */}
+            {/* {hasWallets && !!wallets && !!walletId && !!currentWallet ? ( */}
+            {/* logo + brand name */}
+            <header className="sidebar__header">
+              <div className="header__brand-container">
+                <div className="header__logo-wrapper">
+                  <LogoIcon />
+                </div>
+                <h1 className="sidebar__header-title">REBALANCER</h1>
+              </div>
+              {loading && (
+                <>
+                  <Skeleton
+                    variant="rounded"
+                    width="100%"
+                    height="40px"
+                    className="sidebar__skeleton"
+                  />
+                  <Skeleton
+                    variant="rounded"
+                    width="100%"
+                    height="40px"
+                    className="sidebar__skeleton"
+                  />
+                </>
+              )}
+              {/* <Tooltip
                     title="Zmień portfel inwestycyjny"
                     classes={{
                       tooltip: 'sidebar__tooltip',
@@ -130,6 +150,8 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                     arrow
                     placement="right"
                     open={isWalletDropdownTooltipOpen}> */}
+              {isContentVisible && (
+                <>
                   <WalletDropdown
                     wallets={wallets}
                     currentWallet={currentWallet}
@@ -137,7 +159,6 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                     onMouseEnter={handleTooltipOpen(openWalletDropdownTooltip)}
                     onMouseLeave={closeWalletDropdownTooltip}
                   />
-                  {/* </Tooltip> */}
                   <Tooltip
                     title="Utwórz nowy portfel"
                     classes={{
@@ -159,66 +180,50 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                       </Button>
                     </Link>
                   </Tooltip>
-                </header>
-
-                {/* navigation */}
-                <nav className="sidebar__main-navigation">
-                  <NavLink
-                    className="sidebar__link"
-                    to={APP_ROUTES.wallet.get(walletId)}
-                    // onClick={close}
-                    end>
-                    <WalletIcon className="sidebar__link-icon" />
-                    <p className="sidebar__link-text">Portel</p>
-                  </NavLink>
-                  <NavLink
-                    className="sidebar__link"
-                    to={APP_ROUTES.strategy.get(walletId)}
-                    // onClick={close}
-                  >
-                    <CrisisAlertIcon className="sidebar__link-icon" />
-                    <p className="sidebar__link-text">Strategia</p>
-                  </NavLink>
-                  <NavLink
-                    className="sidebar__link"
-                    to={APP_ROUTES.notifications.get(walletId)}
-                    // onClick={close}
-                  >
-                    <NotificationsIcon className="sidebar__link-icon" />
-                    <p className="sidebar__link-text">Powiadomienia</p>
-                  </NavLink>
-                  {/* <NavLink
-                    className="sidebar__link"
-                    to={APP_ROUTES.dataSources.get(walletId)}
-                    onClick={close}>
-                    <DatasetIcon className="sidebar__link-icon" />
-                    <p className="sidebar__link-text">Źródła danych</p>
-                  </NavLink> */}
-                  <NavLink
-                    className="sidebar__link"
-                    to={APP_ROUTES.walletSettings.get(walletId)}
-                    // onClick={close}
-                  >
-                    <SettingsApplicationsIcon className="sidebar__link-icon" />
-                    <p className="sidebar__link-text">Ustawienia portfela</p>
-                  </NavLink>
-                  <div className="sidebar__nav-divider" />
-                  <NavLink className="sidebar__link" to={APP_ROUTES.settings.path} onClick={close}>
-                    <SettingsIcon className="sidebar__link-icon" />
-                    <p className="sidebar__link-text">Ustawienia</p>
-                  </NavLink>
-                </nav>
-
-                <div className="sidebar__logout-inner">
-                  <button className="sidebar__logout">
-                    <div className="logout-icon__wrapper">
-                      <LogoutIcon className="logout-icon" />
-                    </div>
-                    <p className="logout-text">Wyloguj się</p>
-                  </button>
-                </div>
-              </>
-            ) : (
+                </>
+              )}
+            </header>
+            {loading && (
+              <div>
+                <Skeleton
+                  variant="rounded"
+                  width="100%"
+                  height="36px"
+                  className="sidebar__skeleton"
+                />
+                <Skeleton
+                  variant="rounded"
+                  width="100%"
+                  height="36px"
+                  className="sidebar__skeleton"
+                />
+                <Skeleton
+                  variant="rounded"
+                  width="100%"
+                  height="36px"
+                  className="sidebar__skeleton"
+                />
+                <Skeleton
+                  variant="rounded"
+                  width="100%"
+                  height="36px"
+                  className="sidebar__skeleton"
+                />
+                <Skeleton
+                  variant="rounded"
+                  width="100%"
+                  height="2px"
+                  className="sidebar__skeleton"
+                />
+                <Skeleton
+                  variant="rounded"
+                  width="100%"
+                  height="36px"
+                  className="sidebar__skeleton"
+                />
+              </div>
+            )}
+            {!isContentVisible && !loading && (
               <div>
                 <h1>Tutaj pojawią się Twoje portfele oszczędnościowe</h1>
 
@@ -231,6 +236,64 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
                 </IconButton>
               </div>
             )}
+            {/* navigation */}
+            {isContentVisible && (
+              <nav className="sidebar__main-navigation">
+                <NavLink
+                  className="sidebar__link"
+                  to={APP_ROUTES.wallet.get(walletId)}
+                  // onClick={close}
+                  end>
+                  <WalletIcon className="sidebar__link-icon" />
+                  <p className="sidebar__link-text">Portel</p>
+                </NavLink>
+                <NavLink
+                  className="sidebar__link"
+                  to={APP_ROUTES.strategy.get(walletId)}
+                  // onClick={close}
+                >
+                  <CrisisAlertIcon className="sidebar__link-icon" />
+                  <p className="sidebar__link-text">Strategia</p>
+                </NavLink>
+                <NavLink
+                  className="sidebar__link"
+                  to={APP_ROUTES.notifications.get(walletId)}
+                  // onClick={close}
+                >
+                  <NotificationsIcon className="sidebar__link-icon" />
+                  <p className="sidebar__link-text">Powiadomienia</p>
+                </NavLink>
+                {/* <NavLink
+                    className="sidebar__link"
+                    to={APP_ROUTES.dataSources.get(walletId)}
+                    onClick={close}>
+                    <DatasetIcon className="sidebar__link-icon" />
+                    <p className="sidebar__link-text">Źródła danych</p>
+                  </NavLink> */}
+                <NavLink
+                  className="sidebar__link"
+                  to={APP_ROUTES.walletSettings.get(walletId)}
+                  // onClick={close}
+                >
+                  <SettingsApplicationsIcon className="sidebar__link-icon" />
+                  <p className="sidebar__link-text">Ustawienia portfela</p>
+                </NavLink>
+                <div className="sidebar__nav-divider" />
+                <NavLink className="sidebar__link" to={APP_ROUTES.settings.path} onClick={close}>
+                  <SettingsIcon className="sidebar__link-icon" />
+                  <p className="sidebar__link-text">Ustawienia</p>
+                </NavLink>
+              </nav>
+            )}
+
+            <div className="sidebar__logout-inner">
+              <button className="sidebar__logout">
+                <div className="logout-icon__wrapper">
+                  <LogoutIcon className="logout-icon" />
+                </div>
+                <p className="logout-text">Wyloguj się</p>
+              </button>
+            </div>
           </div>
         </aside>
       </CSSTransition>

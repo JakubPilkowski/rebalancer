@@ -39,7 +39,7 @@ export default function useWalletService(automatic = true): UseWalletsService {
   }, [automatic, fetch]);
 
   return {
-    wallets,
+    wallets: [],
     actions,
     loaders,
     errors,

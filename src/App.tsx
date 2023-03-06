@@ -3,7 +3,7 @@ import Loader from 'components/Loader';
 import APP_ROUTES from 'core/APP_ROUTES';
 import useWalletsService from 'hooks/useWalletsService';
 import React, { FC, lazy, Suspense, useEffect } from 'react';
-import { Navigate, Route, useLocation } from 'react-router';
+import { Navigate, Outlet, Route, useLocation } from 'react-router';
 import { Routes, redirect } from 'react-router-dom';
 
 const Dashboard = lazy(async () => import('pages/Dashboard'));
@@ -44,14 +44,17 @@ const App: FC = () => {
   // }, [fetchError, hasWallets, isFetching, location.pathname, wallets]);
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       {!!wallets && location.pathname === APP_ROUTES.dashboard.path && hasWallets && (
         <Navigate replace to={APP_ROUTES.wallet.get(wallets[0]._id)} />
       )}
       {!!wallets && location.pathname === APP_ROUTES.dashboard.path && !hasWallets && (
         <Navigate replace to={APP_ROUTES.welcome.path} />
       )}
-      <Routes>
+      <Dashboard loading={isFetching} error={fetchError}>
+        <Outlet />
+      </Dashboard>
+      {/* <Routes>
         <Route
           path={APP_ROUTES.login.path}
           element={
@@ -61,37 +64,6 @@ const App: FC = () => {
           }
         />
         <Route element={<Dashboard loading={isFetching} error={fetchError} />}>
-          <Route
-            // loader={async () => {
-            //   // const result = await fetch();
-            //   // const wallets = result.data?.wallets || null;
-            //   // if (!wallets) redirect(APP_ROUTES.welcome.path);
-            //   // const walletsLength = wallets ? wallets.length : 0;
-            //   // const hasWallets = walletsLength > 0;
-            //   console.log('loader');
-            //   if (!!wallets && location.pathname === APP_ROUTES.dashboard.path) {
-            //     if (!hasWallets) {
-            //       return redirect(APP_ROUTES.welcome.path);
-            //     }
-            //     return redirect(APP_ROUTES.wallet.get(wallets[0]._id));
-            //   }
-            // }}
-            path={APP_ROUTES.dashboard.path}
-            loader={() => {
-              console.log('loader');
-            }}
-            element={
-              null
-              // <Navigate
-              //   replace
-              //   to={
-              //     !!wallets && hasWallets
-              //       ? APP_ROUTES.wallet.get(wallets[0]._id)
-              //       : APP_ROUTES.welcome.path
-              //   }
-              // />
-            }
-          />
           <Route
             path={APP_ROUTES.welcome.path}
             element={
@@ -164,8 +136,8 @@ const App: FC = () => {
             }
           />
         </Route>
-      </Routes>
-    </>
+      </Routes> */}
+    </Suspense>
   );
 };
 

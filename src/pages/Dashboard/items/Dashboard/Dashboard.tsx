@@ -10,14 +10,15 @@ import DashboardProps from './Dashboard.types';
 
 import './dashboard.scss';
 
-const Dashboard: FC<DashboardProps> = ({ loading, error }) => {
+const Dashboard: FC<DashboardProps> = ({ loading, error, children }) => {
   return (
     <div className="dashboard">
       <Panel>
         <>
           {loading && <Loader />}
           {error && <p>{error}</p>}
-          {!loading && !error && <Outlet />}
+          {!loading && !error && children}
+          {/* {!loading && !error && <Outlet />} */}
           {/* {!loading && !error && (<Outlet /> || <WelcomeView />)} */}
         </>
       </Panel>
