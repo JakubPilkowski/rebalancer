@@ -5,7 +5,6 @@ import { currentWalletVar } from 'api/variables';
 
 import APP_ROUTES from 'core/APP_ROUTES';
 
-const Dashboard = lazy(async () => import('pages/Dashboard'));
 const Login = lazy(async () => import('pages/Login'));
 const Wallet = lazy(async () => import('pages/Wallet'));
 const WalletNotifications = lazy(async () => import('pages/WalletNotifications'));
@@ -13,7 +12,6 @@ const WalletStrategy = lazy(async () => import('pages/WalletStrategy'));
 const WalletSettings = lazy(async () => import('pages/WalletSettings'));
 const WalletCreator = lazy(async () => import('pages/WalletCreator'));
 const Settings = lazy(async () => import('pages/Settings'));
-const Wallets = lazy(async () => import('pages/wallets'));
 const Welcome = lazy(async () => import('pages/Welcome'));
 
 import Loader from 'components/Loader';
