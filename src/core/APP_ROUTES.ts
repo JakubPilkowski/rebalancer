@@ -3,19 +3,26 @@ import AppRoute from './AppRoute';
 export type AppRoutes = {
   dashboard: AppRoute;
   login: AppRoute;
+  welcome: AppRoute;
   wallet: AppRoute;
+  wallets: AppRoute;
   strategy: AppRoute;
   notifications: AppRoute;
-  connection: AppRoute;
+  dataSources: AppRoute;
   settings: AppRoute;
   walletCreator: AppRoute;
-  account: AppRoute;
+  walletSettings: AppRoute;
 };
 
 export default <AppRoutes>{
   dashboard: new AppRoute({ path: '/' }),
+  welcome: new AppRoute({ path: '/welcome' }),
   login: new AppRoute({ path: '/login' }),
-  wallet: new AppRoute({ path: '/wallets/:walletId', ref: (walletId) => `/wallets/${walletId}` }),
+  wallets: new AppRoute({ path: '/wallets' }),
+  wallet: new AppRoute({
+    path: '/wallets/:walletId/wallet',
+    ref: (walletId) => `/wallets/${walletId}/wallet`,
+  }),
   walletCreator: new AppRoute({ path: '/wallet-creator' }),
   strategy: new AppRoute({
     path: '/wallets/:walletId/strategy',
@@ -25,13 +32,13 @@ export default <AppRoutes>{
     path: '/wallets/:walletId/notifications',
     ref: (walletId) => `/wallets/${walletId}/notifications`,
   }),
-  connection: new AppRoute({
-    path: '/wallets/:walletId/connection',
-    ref: (walletId) => `/wallets/${walletId}/connection`,
+  dataSources: new AppRoute({
+    path: '/wallets/:walletId/data-sources',
+    ref: (walletId) => `/wallets/${walletId}/data-sources`,
   }),
-  settings: new AppRoute({
+  walletSettings: new AppRoute({
     path: '/wallets/:walletId/settings',
     ref: (walletId) => `/wallets/${walletId}/settings`,
   }),
-  account: new AppRoute({ path: '/profile' }),
+  settings: new AppRoute({ path: '/settings' }),
 };

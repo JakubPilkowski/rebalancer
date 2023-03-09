@@ -1,16 +1,19 @@
-import APP_ROUTES from 'core/APP_ROUTES';
+import React, { FC, lazy, Suspense, useEffect } from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router';
+
 import useWalletsService from 'hooks/useWalletsService';
-import React, { FC, lazy } from 'react';
-import { Navigate, Route, useLocation } from 'react-router';
-import { Routes } from 'react-router-dom';
+
+import APP_ROUTES from 'core/APP_ROUTES';
+
+import Loader from 'components/Loader';
+import { useReactiveVar } from '@apollo/client';
+import { currentWalletVar } from 'api/variables';
 
 const Dashboard = lazy(async () => import('pages/Dashboard'));
-const Login = lazy(async () => import('pages/Login'));
-const Wallet = lazy(async () => import('pages/Wallet'));
-const WalletCreator = lazy(async () => import('pages/WalletCreator'));
 
 const App: FC = () => {
   const location = useLocation();
+  const currentWallet = useReactiveVar(currentWalletVar);
 
   const {
     wallets,
@@ -22,35 +25,26 @@ const App: FC = () => {
 
   const hasWallets = walletsLength > 0;
 
-  if (hasWallets && !!wallets && location.pathname === APP_ROUTES.dashboard.path) {
-    console.log('replace');
-    return <Navigate replace to={APP_ROUTES.wallet.get(wallets[0]._id)} />;
-  }
+  useEffect(() => {
+    if (!currentWallet && hasWallets && !!wallets) {
+      currentWalletVar(wallets[0]._id);
+    }
+  }, [currentWallet, hasWallets, wallets]);
 
   return (
-    <Routes>
-      <Route path={APP_ROUTES.login.path} element={<Login />} />
-      <Route
-        path={APP_ROUTES.dashboard.path}
-        element={<Dashboard loading={isFetching} error={fetchError} />}
-      />
-      <Route
-        path={APP_ROUTES.wallet.path}
-        element={
-          <Dashboard loading={isFetching} error={fetchError}>
-            <Wallet />
-          </Dashboard>
-        }
-      />
-      <Route
-        path={APP_ROUTES.walletCreator.path}
-        element={
-          <Dashboard loading={isFetching} error={fetchError}>
-            <WalletCreator />
-          </Dashboard>
-        }
-      />
-    </Routes>
+    // <Suspense fallback={<Loader />}>
+    <>
+      {!!wallets && location.pathname === APP_ROUTES.dashboard.path && hasWallets && (
+        <Navigate replace to={APP_ROUTES.wallet.get(wallets[0]._id)} />
+      )}
+      {!!wallets && location.pathname === APP_ROUTES.dashboard.path && !hasWallets && (
+        <Navigate replace to={APP_ROUTES.welcome.path} />
+      )}
+      <Dashboard loading={isFetching} error={fetchError}>
+        <Outlet />
+      </Dashboard>
+    </>
+    // </Suspense>
   );
 };
 

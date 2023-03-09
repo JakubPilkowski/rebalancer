@@ -3,11 +3,13 @@ import { initReactI18next } from 'react-i18next';
 
 import rootPl from 'locales/pl/root.json';
 import walletsPl from 'locales/pl/wallets.json';
+import sidebarPl from 'locales/pl/sidebar.json';
 
 const resources = {
   pl: {
     root: rootPl,
     wallets: walletsPl,
+    sidebar: sidebarPl,
   },
 };
 

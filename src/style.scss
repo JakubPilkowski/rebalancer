@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  line-height: 150%;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: var(--fontPrimary);
+  background-color: var(--colorBackground);
+  overflow: hidden;
+}
+
+$colors: (
+  colorPrimaryLight: #52527d,
+  colorPrimary: #333366,
+  colorPrimaryDark: #2e2e5e,
+  colorSecondaryLight: #faeb76,
+  colorSecondary: #f9e75e,
+  colorSecondaryDark: #f8e456,
+  colorWhite: #fefcec,
+  colorGreyLight: #f2f2f2,
+  colorGrey: #f0f0f0,
+  colorGreyDark: #eeeeee,
+  colorBlack: #141438,
+);
+
+@function hexToRGB($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+
+@mixin generate_colors($colors) {
+  // Colors
+  @each $color, $value in $colors {
+    @if str-slice(#{$value}, 1, 1) == '#' {
+      --#{$color}: #{$value};
+    } @else {
+      --#{$color}: var(--#{$value});
+    }
+  }
+
+  // RGB Colors
+  @each $color, $value in $colors {
+    @if str-slice(#{$value}, 1, 1) == '#' {
+      --#{$color}RGB: #{hexToRGB($value)};
+    } @else {
+      --#{$color}RGB: var(--#{$value}RGB);
+    }
+  }
+}
+
+:root {
+  @include generate_colors($colors);
+
+  --fontPrimary: 'Poppins', sans-serif;
+  --fontSecondary: 'Inter', sans-serif;
+
+  --fontXS: 0.9rem;
+  --fontS: 1.2rem;
+  --fontM: 1.4rem;
+  --fontL: 1.6rem;
+  --fontXL: 1.8rem;
+  --fontXXL: 2rem;
+  --fontXXXL: 2.4rem;
+
+  --borderRadiusS: 4px;
+  --borderRadiusM: 8px;
+  --borderRadiusL: 12px;
+  --borderRadiusXL: 16px;
+  --borderRadiusXXL: 32px;
+  --borderRadiusFull: 999px;
+
+  --spacingM: 10px;
+  --spacingL: 20px;
+  --spacingXL: 30px;
+}

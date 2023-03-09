@@ -1,0 +1,12 @@
+.dashboard {
+  background-color: var(--colorPrimary);
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  //   flex-direction: column;
+
+  @screen lg {
+    flex-direction: row-reverse;
+  }
+}

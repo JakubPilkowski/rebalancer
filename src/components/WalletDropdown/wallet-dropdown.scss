@@ -1,0 +1,105 @@
+.wallet-dropdown {
+  background-color: var(--colorWhite);
+  border-radius: 6px !important;
+  color: var(--colorPrimary) !important;
+  font-size: var(--fontM) !important;
+  font-family: var(--fontPrimary) !important;
+  box-shadow: rgba(var(--colorWhiteRGB), 0.2) 0px 6px 5px,
+    rgba(var(--colorWhiteRGB), 0.3) 0px 6px 6px;
+
+  .wallet-dropdown__value {
+    margin-left: 10px;
+  }
+
+  .MuiInputBase-input {
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    // padding-right: 48px;
+    font-size: var(--fontM);
+    padding: 7px 15px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+    @screen lg {
+      padding: 10px 15px;
+      font-size: var(--fontL);
+    }
+    // color: var(--colorPrimary);
+  }
+
+  .MuiSelect-nativeInput {
+    outline: none;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border: none;
+  }
+
+  .MuiSelect-icon {
+    cursor: pointer;
+  }
+
+  &__popover-root .MuiSvgIcon-root,
+  .MuiSvgIcon-root {
+    width: 22px;
+    height: 22px;
+    top: calc(50% - 12px);
+    right: 12px;
+    background-color: var(--colorGrey);
+    padding: 3px;
+    border-radius: var(--borderRadiusFull);
+
+    path {
+      fill: var(--colorPrimary);
+    }
+
+    @screen lg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__popover-root {
+    // margin-top: -9px;
+
+    .wallet-dropdown__value {
+      margin-left: 10px;
+    }
+
+    .MuiPaper-root {
+      background-color: var(--colorWhite);
+      box-shadow: rgba(var(--colorWhiteRGB), 0.2) 0px 6px 5px,
+        rgba(var(--colorWhiteRGB), 0.3) 0px 6px 6px;
+      border-radius: 6px;
+    }
+
+    .MuiList-root {
+      margin: 0;
+      padding: 8px 0 0;
+    }
+
+    .MuiButtonBase-root {
+      font-size: var(--fontM);
+      font-weight: bold;
+      color: var(--colorPrimary);
+      font-family: var(--fontPrimary) !important;
+      padding: 7px 15px;
+      min-height: unset;
+
+      @screen lg {
+        font-size: var(--fontL);
+        padding: 10px 15px;
+      }
+
+      &.Mui-selected,
+      &:hover {
+        background-color: var(--colorGrey);
+      }
+    }
+  }
+
+  @screen lg {
+  }
+}

@@ -43,9 +43,9 @@ const baseConfig = {
         ],
       },
       {
-        test: /\.css$/i,
+        test: /\.(sc|c)ss$/i,
         include: path.resolve(__dirname, 'src'),
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpe?g|webp|ico)$/i,
@@ -53,7 +53,22 @@ const baseConfig = {
       },
       {
         test: /\.svg$/,
-        use: ['@svgr/webpack'],
+        issuer: /\.[jt]sx?$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'removeViewBox',
+                    active: false,
+                  },
+                ],
+              },
+            },
+          },
+        ],
       },
     ],
   },
@@ -89,7 +104,10 @@ const developmentConfig = {
     new webpack.DefinePlugin(getEnvKeys({ path: path.resolve(__dirname, '.env.dev') })),
     new HtmlWebpackPlugin({
       // filename: './index.html',
+      hash: true,
+      inject: true,
       template: './index.html',
+      favicon: 'src/assets/images/favicon_5.ico',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
@@ -113,6 +131,7 @@ const productionConfig = {
     }),
     new HtmlWebpackPlugin({
       template: 'index.html',
+      favicon: './src/assets/images/favicon.ico',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',

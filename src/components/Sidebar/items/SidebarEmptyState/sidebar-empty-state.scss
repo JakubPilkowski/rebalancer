@@ -1,0 +1,54 @@
+.sidebar-empty-state__outer {
+  color: white;
+  border-radius: var(--borderRadiusXL);
+  padding: 10px;
+  border: 2px dashed var(--colorPrimaryLight);
+
+  .sidebar-empty-state__inner {
+    background-color: var(--colorPrimaryLight);
+    border-radius: var(--borderRadiusL);
+    padding: 25px 20px;
+  }
+
+  .sidebar-empty-state__info {
+    font-size: var(--fontM);
+    text-align: center;
+    margin-bottom: var(--spacingL);
+  }
+
+  .sidebar-empty-state__button {
+    width: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .sidebar-empty-state__button-icon {
+    svg path {
+      fill: var(--colorPrimary);
+    }
+  }
+
+  .sidebar-empty-state__button-text {
+    font-family: var(--fontPrimary);
+    color: var(--colorPrimary);
+    font-size: var(--fontM);
+    font-weight: bold;
+  }
+}
+
+.sidebar-empty-state__collapsed-button {
+  width: 100%;
+  min-width: unset !important;
+  padding: 10px;
+  display: none !important;
+}
+
+.sidebar-empty-state__title {
+  font-weight: bold;
+  font-size: var(--fontL);
+  color: white;
+  text-align: center;
+  margin-bottom: var(--spacingL);
+}
