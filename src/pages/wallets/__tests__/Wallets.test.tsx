@@ -10,8 +10,8 @@ import Wallets from '../Wallets';
 import { ApiWalletsBuilder } from 'testUtils/builders/ApiWalletsBuilder';
 
 describe('Wallets', () => {
-  const wallet1 = new ApiWalletBuilder().with({ _id: '1', name: 'test1', currency: 'USD' });
-  const wallet2 = new ApiWalletBuilder().with({ _id: '2', name: 'test2', currency: 'PLN' });
+  const wallet1 = new ApiWalletBuilder().with({ id: '1', name: 'test1', currency: 'USD' });
+  const wallet2 = new ApiWalletBuilder().with({ id: '2', name: 'test2', currency: 'PLN' });
 
   const wallets = new ApiWalletsBuilder().with(wallet1, wallet2);
 

@@ -24,7 +24,7 @@ const WalletDropdown = forwardRef<HTMLSelectElement, WalletDropdownProps>(functi
   return (
     <Select
       ref={ref}
-      value={currentWallet._id}
+      value={currentWallet.id}
       renderValue={() => (
         <>
           <WalletIcon className="wallet-dropdown__value-icon" />
@@ -43,7 +43,7 @@ const WalletDropdown = forwardRef<HTMLSelectElement, WalletDropdownProps>(functi
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
       {wallets.map((wallet) => (
-        <MenuItem key={wallet._id} value={wallet._id}>
+        <MenuItem key={wallet.id} value={wallet.id}>
           <>
             <WalletIcon className="wallet-dropdown__value-icon" />
             <span className="wallet-dropdown__value">{wallet.name}</span>

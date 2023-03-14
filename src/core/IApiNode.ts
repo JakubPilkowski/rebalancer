@@ -1,5 +1,6 @@
 export default interface IApiNode<T extends string> {
-  _id: string;
+  id: string;
   __typename: T;
   createdAt: string;
+  updatedAt: string;
 }
