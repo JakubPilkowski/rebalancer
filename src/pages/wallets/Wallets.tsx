@@ -23,7 +23,7 @@ const Wallets: FC<Props> = () => {
     <div>
       <p>{t('wallets:investment_wallets')}</p>
       {data?.wallets.map((wallet) => (
-        <div key={wallet._id}>
+        <div key={wallet.id}>
           <p>{wallet.name}</p>
           <span>{wallet.currency}</span>
         </div>

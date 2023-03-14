@@ -8,7 +8,7 @@ export class ApiWalletBuilder {
   constructor() {
     this.wallet = {
       __typename: 'Wallet',
-      _id: '1',
+      id: '1',
       createdAt: '2023-01-01T12:00:00.000Z',
       name: '',
       currency: '',

@@ -8,8 +8,9 @@ export type IApiWallet = IApiNode<'Wallet'> & {
 
 export default gql`
   fragment Wallet on Wallet {
-    _id
+    id
     createdAt
+    updatedAt
     currency
     name
     __typename

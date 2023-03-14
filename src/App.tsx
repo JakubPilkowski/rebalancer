@@ -27,7 +27,7 @@ const App: FC = () => {
 
   useEffect(() => {
     if (!currentWallet && hasWallets && !!wallets) {
-      currentWalletVar(wallets[0]._id);
+      currentWalletVar(wallets[0].id);
     }
   }, [currentWallet, hasWallets, wallets]);
 
@@ -35,7 +35,7 @@ const App: FC = () => {
     // <Suspense fallback={<Loader />}>
     <>
       {!!wallets && location.pathname === APP_ROUTES.dashboard.path && hasWallets && (
-        <Navigate replace to={APP_ROUTES.wallet.get(wallets[0]._id)} />
+        <Navigate replace to={APP_ROUTES.wallet.get(wallets[0].id)} />
       )}
       {!!wallets && location.pathname === APP_ROUTES.dashboard.path && !hasWallets && (
         <Navigate replace to={APP_ROUTES.welcome.path} />

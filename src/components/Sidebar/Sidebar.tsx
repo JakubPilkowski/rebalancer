@@ -42,7 +42,7 @@ const Sidebar: FC<SidebarProps> = ({ loading }) => {
   const { wallets } = useWalletsService();
 
   const currentWallet = useMemo<IApiWallet | null>(
-    () => wallets?.find((wallet) => wallet._id === walletId) || null,
+    () => wallets?.find((wallet) => wallet.id === walletId) || null,
     [walletId, wallets]
   );
 
