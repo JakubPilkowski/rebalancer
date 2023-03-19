@@ -8,8 +8,8 @@ type HeaderProps = {
 
 const Header: FC<HeaderProps> = ({ title }) => {
   return (
-    <div>
-      <h2>{title}</h2>
+    <div className="header">
+      <h2 className="header__title">{title}</h2>
     </div>
   );
 };

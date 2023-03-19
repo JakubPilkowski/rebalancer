@@ -5,7 +5,11 @@
   overflow-x: hidden;
   border-radius: 0;
   background-color: var(--colorWhite);
-  padding: 60px var(--spacingL) var(--spacingL);
+  padding: var(--spacingL) var(--spacingL);
+
+  @screen lg {
+    padding: var(--spacingXL) var(--spacingXL);
+  }
 
   @screen lg {
     height: 100%;

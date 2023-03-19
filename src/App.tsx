@@ -5,7 +5,6 @@ import useWalletsService from 'hooks/useWalletsService';
 
 import APP_ROUTES from 'core/APP_ROUTES';
 
-import Loader from 'components/Loader';
 import { useReactiveVar } from '@apollo/client';
 import { currentWalletVar } from 'api/variables';
 
