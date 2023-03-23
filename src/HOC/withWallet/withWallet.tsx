@@ -1,20 +1,27 @@
 import React, { ComponentType, ReactElement } from 'react';
-import { ApolloError } from '@apollo/client';
-import Error from 'components/Error';
-import IRouteParams from 'core/IRouteParams';
-import useWalletService from 'hooks/useWalletService';
+import { Navigate, useParams } from 'react-router-dom';
+
 import WalletProvider from 'providers/WalletProvider';
 
-import { useParams } from 'react-router-dom';
+import useWalletService from 'hooks/useWalletService';
 
-const withWallet = (WrappedComponent: ComponentType<any>) => {
+import Loader from 'components/Loader';
+
+import APP_ROUTES from 'core/APP_ROUTES';
+import IRouteParams from 'core/IRouteParams';
+
+const withWallet = (WrappedComponent: ComponentType<unknown>) => {
   return (props: any): ReactElement => {
     const { walletId } = useParams<IRouteParams>();
 
     const { wallet, actions, loaders, errors } = useWalletService({ walletId: walletId as string });
 
+    if (loaders.isFetching) {
+      return <Loader />;
+    }
+
     if (!wallet) {
-      return <Error error={new ApolloError({ errorMessage: 'EmptyWalletObject' })} />;
+      <Navigate to={APP_ROUTES.pageNotFound.path} />;
     }
 
     return (

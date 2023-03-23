@@ -3,7 +3,7 @@ import { IApiPeriodUnit } from 'api/fragment/PERIOD';
 
 import WALLET, { IApiWallet } from 'api/fragment/WALLET';
 
-export type GetWalletPayload = {
+export type CreateWalletPayload = {
   wallet: IApiWallet;
 };
 

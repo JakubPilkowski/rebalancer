@@ -12,10 +12,12 @@ export type AppRoutes = {
   settings: AppRoute;
   walletCreator: AppRoute;
   walletSettings: AppRoute;
+  pageNotFound: AppRoute;
 };
 
 export default <AppRoutes>{
   dashboard: new AppRoute({ path: '/' }),
+  pageNotFound: new AppRoute({ path: '/page-not-found' }),
   welcome: new AppRoute({ path: '/welcome' }),
   login: new AppRoute({ path: '/login' }),
   wallets: new AppRoute({ path: '/wallets' }),

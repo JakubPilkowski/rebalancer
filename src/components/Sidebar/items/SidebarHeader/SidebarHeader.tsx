@@ -12,7 +12,7 @@ import APP_ROUTES from 'core/APP_ROUTES';
 import WalletDropdown from 'components/WalletDropdown';
 
 import AddIcon from '@mui/icons-material/Add';
-import LogoIcon from 'assets/icons/logo_4.svg';
+import LogoIcon from 'public/icons/logo_4.svg';
 
 import './sidebar-header.scss';
 

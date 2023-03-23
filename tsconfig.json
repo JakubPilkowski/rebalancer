@@ -28,8 +28,9 @@
     "resolveJsonModule": true,
     "paths": {
       "components/*": ["./components/*"],
-      "assets/*": ["./assets/*"],
-      "locales/*": ["./assets/locales/*"],
+      "public/*": ["../public/*"],
+      // "assets/*": ["./assets/*"],
+      // "locales/*": ["./assets/locales/*"],
       "api/*": ["./api/*"],
       "hooks/*": ["./hooks/*"],
       "utils/*": ["./utils/*"],

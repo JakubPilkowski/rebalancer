@@ -7,7 +7,7 @@
   "select_broker": "Wybierz brokera",
   "currency": "Waluta",
   "select_currency": "Wybierz walutę",
-  "select_info": "W przypadku wybrania brokera pole wypełnia się automatycznie",
+  "select_info": "Waluta musi być zgodna z walutą konta brokerskiego.",
   "specify_weights": "Określ wagi aktywów",
   "wallet_categories_and_shares_info": "Każdy portfel może składać się z kategorii oraz aktywów. Dana kategoria może zawierać w sobie dowolną ilość różnych aktywów. Aktywa można dołączyć do danej kategorii przeciągając i upuszczając je w odpowiedniej kategorii. Każda kategoria oraz osobne aktywo musi mięć określoną wagę docelową. Suma wag nie może być wyższa niż 100%",
   "add_new_category": "Dodaj nową kategorię",

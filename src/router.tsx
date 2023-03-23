@@ -13,6 +13,7 @@ const WalletSettings = lazy(async () => import('pages/WalletSettings'));
 const WalletCreator = lazy(async () => import('pages/WalletCreator'));
 const Settings = lazy(async () => import('pages/Settings'));
 const Welcome = lazy(async () => import('pages/Welcome'));
+const PageNotFound = lazy(async () => import('pages/PageNotFound'));
 
 import Loader from 'components/Loader';
 
@@ -31,6 +32,14 @@ export default createBrowserRouter(
         {
           path: APP_ROUTES.dashboard.path,
           element: null,
+        },
+        {
+          path: APP_ROUTES.pageNotFound.path,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <PageNotFound />
+            </Suspense>
+          ),
         },
         {
           path: APP_ROUTES.login.path,

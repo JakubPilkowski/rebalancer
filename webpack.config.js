@@ -107,7 +107,7 @@ const developmentConfig = {
       hash: true,
       inject: true,
       template: './index.html',
-      favicon: 'src/assets/images/favicon_5.ico',
+      favicon: 'public/images/favicon_5.ico',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
@@ -131,7 +131,7 @@ const productionConfig = {
     }),
     new HtmlWebpackPlugin({
       template: 'index.html',
-      favicon: './src/assets/images/favicon.ico',
+      favicon: 'public/images/favicon_5.ico',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',

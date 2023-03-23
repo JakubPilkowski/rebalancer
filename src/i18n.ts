@@ -1,10 +1,10 @@
 import { use, init } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import rootPl from 'locales/pl/root.json';
-import walletsPl from 'locales/pl/wallets.json';
-import sidebarPl from 'locales/pl/sidebar.json';
-import walletCreatorPl from 'locales/pl/wallet-creator.json';
+import rootPl from 'public/locales/pl/root.json';
+import walletsPl from 'public/locales/pl/wallets.json';
+import sidebarPl from 'public/locales/pl/sidebar.json';
+import walletCreatorPl from 'public/locales/pl/wallet-creator.json';
 
 const resources = {
   pl: {

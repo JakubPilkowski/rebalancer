@@ -1,9 +1,15 @@
 import React, { FC } from 'react';
 
-import WalletCreatorView from '../WalletCreatorView';
+import { useWalletContext } from 'providers/WalletProvider';
+
+import withWallet from 'HOC/withWallet';
+
+import WalletCreatorRender from '../WalletCreatorRender';
 
 const WalletCreatorContainer: FC = () => {
-  return <WalletCreatorView />;
+  const { actions, loaders, errors } = useWalletContext();
+
+  return <WalletCreatorRender />;
 };
 
-export default WalletCreatorContainer;
+export default withWallet(WalletCreatorContainer);
