@@ -4,12 +4,12 @@ import clsx from 'clsx';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import ISelect from './ISelect';
+import ISelect, { ISelectOption } from './ISelect';
 
 import './select.scss';
 
-const Select = forwardRef(function Select<T>(
-  { children, className, IconComponent, MenuProps, startIcon, ...props }: ISelect<T>,
+const Select = forwardRef(function Select<T extends ISelectOption>(
+  { children, className, IconComponent, MenuProps, startIcon, value, ...props }: ISelect<T>,
   ref: ForwardedRef<HTMLSelectElement>
 ): ReactElement {
   return (
@@ -17,12 +17,13 @@ const Select = forwardRef(function Select<T>(
       className={clsx('select', className)}
       ref={ref}
       IconComponent={IconComponent || ExpandMoreIcon}
-      //   renderValue={(val) => (
-      //     <>
-      //       <div className="select__value-icon">{startIcon}</div>
-      //       <span className="select__value">{val}</span>
-      //     </>
-      //   )}
+      renderValue={(val) => (
+        <>
+          <div className="select__value-icon">{startIcon}</div>
+          <span className="select__value">{val.name}</span>
+        </>
+      )}
+      value={value}
       MenuProps={{
         PopoverClasses: {
           root: 'select__popover-root',

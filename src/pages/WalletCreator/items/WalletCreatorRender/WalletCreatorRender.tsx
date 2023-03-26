@@ -2,17 +2,22 @@ import React, { FC } from 'react';
 
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 import useTranslate from 'hooks/useTranslate';
 
+import currencyList from 'core/currency/currencyList';
+
 import Header from 'components/Header';
+import Select from 'components/Select';
+import SelectItem from 'components/SelectItem';
 
 import IWalletCreatorRender from './IWalletCreatorRender';
 
 import './wallet-creator-render.scss';
-import currencyList from 'utils/currencyList';
-import Select from 'components/Select';
-import SelectItem from 'components/SelectItem';
+import { FormControlLabel, Switch } from '@mui/material';
 
 const WalletCreatorRender: FC<IWalletCreatorRender> = () => {
   const t = useTranslate();
@@ -38,9 +43,9 @@ const WalletCreatorRender: FC<IWalletCreatorRender> = () => {
             <Select
               label={t('walletCreator:currency')}
               placeholder={t('walletCreator:select_currency')}>
-              {currencyList.map(({ name, code }) => (
-                <SelectItem key={code} value={code}>
-                  {t(name)}
+              {currencyList.map((option) => (
+                <SelectItem key={option.value} value={option}>
+                  {t(option.name)}
                 </SelectItem>
               ))}
             </Select>
@@ -57,7 +62,20 @@ const WalletCreatorRender: FC<IWalletCreatorRender> = () => {
               <Select />
               <Select />
             </div>
-            <div>{/* NotificationPicker */}</div>
+            <div>
+              <FormControlLabel
+                // value={}
+                control={<Switch />}
+                label={t('last_rebalancing_date_check')}
+                labelPlacement="start"
+              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker label={t('wallet_start_date')} disableFuture />
+              </LocalizationProvider>
+            </div>
+            <div>
+              <Select />
+            </div>
           </div>
         </section>
       </div>
