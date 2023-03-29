@@ -1,10 +1,12 @@
-import { ISelectOption } from 'components/Select';
-import { IApiPeriodUnit } from 'api/fragment/PERIOD';
 import createRangeArray from 'utils/createRangeArray/createRangeArray';
 
-export default function (unitValue: IApiPeriodUnit): ISelectOption[] {
+import { ISelectOption } from 'components/Select';
+import { IPeriodUnit } from 'core/period/IPeriod';
+
+export default function (unitValue?: IPeriodUnit): ISelectOption[] {
   switch (unitValue) {
     case 'MONTH':
+    default:
       return createRangeArray<ISelectOption>(12, {
         from: 1,
         cb: (val) => ({ name: `${val}`, value: val.toString() }),
