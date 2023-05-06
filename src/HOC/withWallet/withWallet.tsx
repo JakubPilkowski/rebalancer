@@ -20,9 +20,11 @@ const withWallet = (WrappedComponent: ComponentType<unknown>) => {
       return <Loader />;
     }
 
-    if (!wallet) {
-      <Navigate to={APP_ROUTES.pageNotFound.path} />;
-    }
+    // console.log(wallet);
+
+    // if (!wallet) {
+    //   <Navigate to={APP_ROUTES.pageNotFound.path} />;
+    // }
 
     return (
       <WalletProvider wallet={wallet} actions={actions} loaders={loaders} errors={errors}>

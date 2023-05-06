@@ -34,9 +34,10 @@
   "notifications_check": "Chcę otrzymywać powiadomienia",
   "last_rebalancing_date_check": "Czy w danym portfelu inwestycyjnym wykonano już rebalancing?",
   "wallet_start_date": "Data ostatniego rebalancingu",
-  "wallet_start_date_info": "Zmień datę tylko wtedy gdxy dokonałeś już pierwszych transakcji na końcie",
+  "wallet_start_date_info": "Zmień datę tylko wtedy gdy dokonałeś już pierwszych transakcji na koncie",
   "wallet_last_rebalance_date": "Data ostatniego rebalancingu",
   "wallet_end_date": "Data szacowanego końca inwestycji",
   "rebalance_notifications": "Na ile dni przed wysyłać powiadomienia?",
-  "select_rebalance_notifications": "Wybierz dni"
+  "select_rebalance_notifications": "Wybierz dni",
+  "create_wallet": "Stwórz portfel"
 }

@@ -6,7 +6,7 @@ import withWallet from 'HOC/withWallet';
 
 import WalletCreatorRender from '../WalletCreatorRender';
 
-const WalletCreatorContainer: FC = () => {
+const WalletCreatorContainer: FC<unknown> = () => {
   const { actions, loaders, errors } = useWalletContext();
 
   return <WalletCreatorRender />;

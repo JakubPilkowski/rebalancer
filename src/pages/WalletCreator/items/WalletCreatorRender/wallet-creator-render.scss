@@ -1,4 +1,4 @@
-.wallet-creator-view {
+.wallet-creator-render {
   padding: 0 var(--spacingXL);
 
   .header {
@@ -15,10 +15,16 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
+    overflow-x: hidden;
+
+    .content__section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacingM);
+    }
 
     .content__title {
       font-size: var(--fontL);
-      margin-bottom: var(--spacingM);
 
       @screen lg {
         font-size: var(--fontXL);
@@ -34,6 +40,30 @@
 
       @screen lg {
         height: 3px;
+      }
+    }
+
+    .content__banner {
+      border-radius: 9px;
+      padding: var(--spacingL);
+      background-color: rgba(var(--colorPrimaryRGB), 0.2);
+      color: var(--colorPrimary);
+      font-weight: bold;
+      font-size: var(--fontS);
+
+      @screen lg {
+        font-size: var(--fontM);
+      }
+    }
+
+    .content__submit {
+      width: 100%;
+      font-weight: bold;
+      padding: 10px 40px;
+      font-size: var(--fontM);
+
+      @screen lg {
+        width: max-content;
       }
     }
   }
